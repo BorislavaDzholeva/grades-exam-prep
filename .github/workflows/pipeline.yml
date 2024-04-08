@@ -21,3 +21,18 @@ jobs:
     - run: npm install 
     - run: npm run test:unit
     - run: echo "borislavadzholeva"
+  
+  run-ui-tests:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+    - name: Use Node.js20x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    - run: npm install 
+    - run: npx playwright install
+    - run: npm run test:ui
